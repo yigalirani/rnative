@@ -1,5 +1,7 @@
 import React ,{ useState,useEffect } from 'react';
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View,Image,TextInput,Button } from 'react-native';
+
+import {usePair} from './utils.js'
 var pic = {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
 };
@@ -21,10 +23,35 @@ function Tiker() {
     },[]);
     return <><Thepic count={count}/><Text>{count}</Text></>
 }
+function Translator(){
+    var text=usePair('the_text')
+    return <>
+        <TextInput
+          style={{height: 40,backgroundColor:'white'}}
+          placeholder="Type here to translate!"
+          onChangeText={x => text.set(x)}
+          value={text.val}
+        />
+       <Text style={{padding: 10, fontSize: 42}}>
+          {text.val.split(' ').map((word) => word && '🍕').join(' ')}
+
+      </Text>  
+    </>    
+  }
+function Pressme(){
+    return <Button
+    onPress={() => {
+    alert('You tapped the button!');
+    }}
+    title="Press Me"
+    />
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
+  <View style={styles.container}>
+      <Pressme/>
+      <Translator/>
       <Thepic/><Tiker/>
       <Text>Open up App.js to start working on your app!</Text>
     </View>
