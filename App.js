@@ -1,24 +1,25 @@
 import React ,{ useState,useEffect } from 'react';
 import { StyleSheet, Text, View,Image } from 'react-native';
-function Thepic(){
-    let pic = {
+var pic = {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-    };
-    return <Image source={pic} style={{width: 193, height: 110}}/>
+};
+function Thepic({count=200}){
+    return <Image source={pic} style={{width: count%300, height: 110}}/>
 }
 function Tiker() {
     var [count,setCount]=useState(0);
-
+    function tick(){
+      setCount(count=>count+10)
+    }
     useEffect(()=>{
-        var timerID=setInterval(_=>setCount(count=>count+1) //setCount(count+1) wont work.after frw months: great comment!
-            ,100);
+        var timerID=setInterval(tick,10);
         console.log('setinterval',count)
         return function cleanup() {
             clearInterval(timerID);
             console.log('clearinterval')
         };
     },[]);
-    return <Text>{count}</Text>
+    return <><Thepic count={count}/><Text>{count}</Text></>
 }
 
 export default function App() {
